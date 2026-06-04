@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <base href="/">
+
+  <meta charset="UTF-8">
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Sonu Kumar — Senior Flutter Developer & UI/UX Engineer. Building scalable cross-platform apps with clean architecture, smooth animations and pixel-perfect UI.">
+  <meta name="keywords" content="Sonu Kumar, Flutter Developer, Mobile App Developer, UI UX, Cross Platform, Dart, React Native">
+  <meta name="author" content="Sonu Kumar">
+
+  <!-- Open Graph / social preview -->
+  <meta property="og:title" content="Sonu Kumar · Senior Flutter Developer">
+  <meta property="og:description" content="Senior Flutter Developer & UI/UX Engineer building scalable cross-platform apps.">
+  <meta property="og:type" content="website">
+
+  <!-- iOS meta tags & icons -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="Sonu Kumar">
+  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="favicon.png"/>
+
+  <title>Sonu Kumar · Senior Flutter Developer</title>
+  <link rel="manifest" href="manifest.json">
+
+  <style>
+    html, body { margin: 0; padding: 0; background-color: #1A1210; }
+    /* Dark pre-loader matches the default dark splash for a seamless intro. */
+    #loading {
+      position: fixed; inset: 0; display: flex; align-items: center;
+      justify-content: center; flex-direction: column; gap: 22px;
+      background: #1A1210; z-index: 9999;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      transition: opacity .5s ease;
+    }
+    #loading .logo {
+      font-size: 44px; font-weight: 800; letter-spacing: -1px;
+      background: linear-gradient(90deg, #C0392B, #C0392B);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    #loading .spinner {
+      width: 38px; height: 38px; border-radius: 50%;
+      border: 3px solid rgba(245,236,215,0.18); border-top-color: #C0392B;
+      animation: spin 0.9s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+  </style>
+</head>
+<body>
+  <div id="loading">
+    <div class="logo">SK.</div>
+    <div class="spinner"></div>
+  </div>
+
+  <script>
+    // Kill any stale Flutter service-worker cache so updates always show.
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then(function (regs) {
+        regs.forEach(function (r) { r.unregister(); });
+      });
+      if (window.caches && caches.keys) {
+        caches.keys().then(function (keys) {
+          keys.forEach(function (k) { caches.delete(k); });
+        });
+      }
+    }
+    window.addEventListener('flutter-first-frame', function () {
+      var el = document.getElementById('loading');
+      if (el) { el.style.opacity = '0'; setTimeout(function(){ el.remove(); }, 500); }
+    });
+  </script>
+  <script src="flutter_bootstrap.js" async></script>
+</body>
+</html>
