@@ -204,7 +204,7 @@ class _StoreBadge extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
       decoration: BoxDecoration(
-        color: Colors.white.withValues(alpha: 0.85),
+        color: AppColors.cream.withValues(alpha: 0.85),
         borderRadius: BorderRadius.circular(30),
         border: Border.all(color: project.accent.withValues(alpha: 0.4)),
       ),

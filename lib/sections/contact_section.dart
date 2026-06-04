@@ -69,14 +69,14 @@ class ContactSection extends StatelessWidget {
                         children: [
                           Icon(
                             Icons.mail_outline,
-                            color: Colors.white,
+                            color: AppColors.cream,
                             size: 19,
                           ),
                           SizedBox(width: 10),
                           Text(
                             'Email Me',
                             style: TextStyle(
-                              color: Colors.white,
+                              color: AppColors.cream,
                               fontWeight: FontWeight.w600,
                               fontSize: 15,
                             ),

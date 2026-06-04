@@ -243,7 +243,7 @@ class _ThemeToggle extends StatelessWidget {
                 dark ? Icons.light_mode_rounded : Icons.dark_mode_rounded,
                 key: ValueKey(dark),
                 size: 19,
-                color: dark ? const Color(0xFFFCD34D) : AppColors.primary,
+                color: AppColors.red,
               ),
             ),
           ),

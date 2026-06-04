@@ -85,7 +85,7 @@ class PortfolioData {
           'secure auth and dynamic API-driven screens. Improved maintainability '
           'by 35% and cut onboarding friction by 30%.',
       tags: ['Flutter', 'REST API', 'Auth', 'Clean Arch'],
-      accent: Color(0xFF7C3AED),
+      accent: Color(0xFFC0392B),
       link: 'https://play.google.com/store/apps/details?id=com.unjob.app',
     ),
     Project(
@@ -98,7 +98,7 @@ class PortfolioData {
           'discovery, vendor listings (150+ vendors, 1000+ items), secure '
           'payments and an earnings dashboard for owners.',
       tags: ['Flutter', 'BLoC', 'Marketplace', 'Payments'],
-      accent: Color(0xFF2E7D32),
+      accent: Color(0xFFC0392B),
       link: 'https://play.google.com/store/apps/details?id=com.app.flexirentor',
     ),
     Project(
@@ -109,7 +109,7 @@ class PortfolioData {
           'authentication and document verification — reducing manual processing '
           'by 25% and load time by 20%.',
       tags: ['Flutter', 'Fintech', 'Security'],
-      accent: Color(0xFF06B6D4),
+      accent: Color(0xFFC0392B),
       link: 'https://apps.apple.com/in/app/efl-clik/id6449164257',
     ),
     Project(
@@ -120,7 +120,7 @@ class PortfolioData {
           'requirements and manage services with real-time updates. Boosted user '
           'engagement by 25%.',
       tags: ['React Native', 'Real-time', 'Commerce'],
-      accent: Color(0xFFF472B6),
+      accent: Color(0xFFC0392B),
       link: 'https://apps.apple.com/in/app/raftaarr/id6443399745',
     ),
     Project(
@@ -131,7 +131,7 @@ class PortfolioData {
           'caching via Hive and connectivity-aware fetching — 40% faster loads '
           'and seamless offline access.',
       tags: ['Flutter', 'BLoC', 'Supabase', 'Hive'],
-      accent: Color(0xFF22C55E),
+      accent: Color(0xFFC0392B),
     ),
     Project(
       name: 'Expense Tracker',
@@ -140,7 +140,7 @@ class PortfolioData {
           'A cross-platform expense tracker with local persistence and '
           'categorised transactions, improving data-retrieval speed by 20%.',
       tags: ['Flutter', 'SQLite', 'Local DB'],
-      accent: Color(0xFFF59E0B),
+      accent: Color(0xFFC0392B),
     ),
   ];
 

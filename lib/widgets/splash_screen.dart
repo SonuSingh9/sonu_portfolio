@@ -89,54 +89,73 @@ class _SplashScreenState extends State<SplashScreen>
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      color: AppColors.bg,
-      child: Stack(
-        children: [
-          // Soft pastel blobs.
-          AnimatedBuilder(
-            animation: _bg,
-            builder: (context, _) {
-              final t = _bg.value * 2 * math.pi;
-              return Stack(
-                children: [
-                  _blob(
-                    AppColors.primary,
-                    0.22 + 0.08 * math.sin(t),
-                    0.28 + 0.06 * math.cos(t),
-                    520,
-                    0.14,
-                  ),
-                  _blob(
-                    AppColors.secondary,
-                    0.78 + 0.07 * math.cos(t),
-                    0.66 + 0.08 * math.sin(t),
-                    480,
-                    0.14,
-                  ),
-                  _blob(
-                    AppColors.pink,
-                    0.55 + 0.08 * math.sin(t * 1.3),
-                    0.85 + 0.04 * math.cos(t),
-                    360,
-                    0.10,
-                  ),
-                ],
-              );
-            },
-          ),
-          Center(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                _animatedBadge(),
-                const SizedBox(height: 34),
-                _greeting(),
-              ],
+    return Scaffold(
+      backgroundColor: Colors.transparent,
+      body: LayoutBuilder(
+        builder: (context, c) => Stack(
+          children: [
+            // Background carried by a tall ColoredBox inside a scroll viewport —
+            // the exact structure the HomePage uses, which CanvasKit composites
+            // correctly (a plain full-screen fill gets greyed out instead).
+            SingleChildScrollView(
+              physics: const NeverScrollableScrollPhysics(),
+              child: ColoredBox(
+                color: AppColors.bg,
+                child: SizedBox(width: c.maxWidth, height: c.maxHeight * 3),
+              ),
             ),
-          ),
-          _bottomBar(),
-        ],
+            // Foreground content, sized to the viewport.
+            Positioned.fill(
+              child: Stack(
+                children: [
+                  // Soft pastel blobs.
+                  AnimatedBuilder(
+                    animation: _bg,
+                    builder: (context, _) {
+                      final t = _bg.value * 2 * math.pi;
+                      return Stack(
+                        children: [
+                          _blob(
+                            AppColors.primary,
+                            0.22 + 0.08 * math.sin(t),
+                            0.28 + 0.06 * math.cos(t),
+                            520,
+                            0.14,
+                          ),
+                          _blob(
+                            AppColors.secondary,
+                            0.78 + 0.07 * math.cos(t),
+                            0.66 + 0.08 * math.sin(t),
+                            480,
+                            0.14,
+                          ),
+                          _blob(
+                            AppColors.pink,
+                            0.55 + 0.08 * math.sin(t * 1.3),
+                            0.85 + 0.04 * math.cos(t),
+                            360,
+                            0.10,
+                          ),
+                        ],
+                      );
+                    },
+                  ),
+                  Center(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        _animatedBadge(),
+                        const SizedBox(height: 34),
+                        _greeting(),
+                      ],
+                    ),
+                  ),
+                  _bottomBar(),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

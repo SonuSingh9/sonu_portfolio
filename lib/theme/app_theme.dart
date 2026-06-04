@@ -1,59 +1,52 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-/// App-wide theme switch. `true` = dark (default "dark premium").
-/// Toggled from the nav bar; the app root rebuilds on change.
 final ValueNotifier<bool> themeNotifier = ValueNotifier<bool>(true);
 
-/// Central design tokens. Surface/text colors switch by [isDark]; accent colors
-/// are identical in both modes (so they can stay `const`).
 class AppColors {
-  /// Current mode. Default = dark ("dark premium"). Toggled at the app root.
   static bool isDark = true;
 
-  // ---- Accents (same in both modes) ----
-  static const Color primary = Color(0xFF7C3AED); // violet
-  static const Color secondary = Color(0xFF06B6D4); // cyan
-  static const Color teal = Color(0xFF14B8A6); // gradient midpoint
-  static const Color pink = Color(0xFFF472B6); // decorative pop
+  // ---- Brand palette: exactly 3 colors ----
+  static const Color darkBase = Color(0xFF1A1210); // warm-tinted black
+  static const Color cream = Color(0xFFF5ECD7); // cream
+  static const Color red = Color(0xFFC0392B); // warm red
+
+  // Accent aliases (all map to the single red accent).
+  static const Color primary = red;
+  static const Color secondary = red;
+  static const Color teal = red;
+  static const Color pink = red;
 
   static const LinearGradient accent = LinearGradient(
-    colors: [primary, secondary],
+    colors: [red, red],
     begin: Alignment.centerLeft,
     end: Alignment.centerRight,
   );
 
   static const LinearGradient accentDiagonal = LinearGradient(
-    colors: [primary, pink, secondary],
+    colors: [red, red],
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
   );
 
-  // ---- Surfaces (mode-dependent) ----
-  // Dark uses near-black throughout (no grey banding); cards lift via a
-  // slightly lighter surface + border + glow.
-  static Color get bg =>
-      isDark ? const Color(0xFF0A0A12) : const Color(0xFFFFFFFF);
-  static Color get bgAlt =>
-      isDark ? const Color(0xFF0A0A12) : const Color(0xFFFFFFFF);
-  static Color get surface =>
-      isDark ? const Color(0xFF17171F) : const Color(0xFFFFFFFF);
+  static Color get bg => isDark ? darkBase : const Color(0xFFECE3CF);
+  static Color get bgAlt => isDark ? darkBase : const Color(0xFFECE3CF);
+  static Color get surface => isDark ? const Color(0xFF2C2420) : cream;
   static Color get surfaceHi =>
-      isDark ? const Color(0xFF20202C) : const Color(0xFFF1F3F9);
+      isDark ? const Color(0xFF39312C) : const Color(0xFFE3D8BE);
   static Color get border =>
-      isDark ? const Color(0xFF2A2A38) : const Color(0xFFE8EAF1);
+      isDark ? const Color(0xFF463E38) : const Color(0xFFCEC5B3);
 
-  // ---- Text (mode-dependent) ----
-  static Color get text =>
-      isDark ? const Color(0xFFF4F4FB) : const Color(0xFF14132A);
+  // ---- Text (mode-dependent: cream on dark, dark on cream) ----
+  static Color get text => isDark ? cream : darkBase;
   static Color get textMuted =>
-      isDark ? const Color(0xFF9A9AB2) : const Color(0xFF5B6072);
+      isDark ? const Color(0xFFB3AB9B) : const Color(0xFF675E56);
   static Color get textFaint =>
-      isDark ? const Color(0xFF6A6A82) : const Color(0xFF9AA0B4);
+      isDark ? const Color(0xFF7D746A) : const Color(0xFF999083);
 
-  /// Soft elevation for cards (subtler/darker on dark, soft on light).
+  /// Soft elevation for cards (warm shadow in both modes).
   static List<BoxShadow> softShadow({double y = 18, double blur = 40}) {
-    final c = isDark ? const Color(0xFF000000) : const Color(0xFF1B1240);
+    final c = isDark ? const Color(0xFF000000) : const Color(0xFF1A1210);
     return [
       BoxShadow(
         color: c.withValues(alpha: isDark ? 0.4 : 0.07),
@@ -83,7 +76,7 @@ class AppTheme {
         secondary: AppColors.secondary,
         surface: AppColors.surface,
       ),
-      textTheme: GoogleFonts.interTextTheme(
+      textTheme: GoogleFonts.spaceGroteskTextTheme(
         base.textTheme,
       ).apply(bodyColor: AppColors.text, displayColor: AppColors.text),
     );

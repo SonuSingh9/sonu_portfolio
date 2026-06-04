@@ -144,7 +144,7 @@ class HeroSection extends StatelessWidget {
             width: 8,
             height: 8,
             decoration: const BoxDecoration(
-              color: Color(0xFF22C55E),
+              color: AppColors.red,
               shape: BoxShape.circle,
             ),
           ),
@@ -241,13 +241,13 @@ class _PrimaryButton extends StatelessWidget {
               Text(
                 label,
                 style: const TextStyle(
-                  color: Colors.white,
+                  color: AppColors.cream,
                   fontWeight: FontWeight.w600,
                   fontSize: 15,
                 ),
               ),
               const SizedBox(width: 8),
-              const Icon(Icons.arrow_forward, size: 18, color: Colors.white),
+              const Icon(Icons.arrow_forward, size: 18, color: AppColors.cream),
             ],
           ),
         ),

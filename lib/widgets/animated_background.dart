@@ -32,7 +32,9 @@ class _AnimatedBackgroundState extends State<AnimatedBackground>
     return IgnorePointer(
       child: Stack(
         children: [
-          Positioned.fill(child: ColoredBox(color: AppColors.bg)),
+          // No full-screen fill here — CanvasKit would lift it into its grey
+          // clear color. The page background is carried by the scroll content
+          // (see main.dart) and the HTML <body>.
           AnimatedBuilder(
             animation: _c,
             builder: (context, _) {
