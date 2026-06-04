@@ -45,7 +45,7 @@ class _TimelineItem extends StatelessWidget {
       children: [
         Text(
           exp.title,
-          style: const TextStyle(
+          style: TextStyle(
             fontSize: 19,
             fontWeight: FontWeight.w700,
             color: AppColors.text,
@@ -66,117 +66,112 @@ class _TimelineItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final mobile = isMobile(context);
-    return IntrinsicHeight(
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Column(
-            children: [
-              Container(
-                width: 18,
-                height: 18,
-                decoration: BoxDecoration(
-                  gradient: AppColors.accent,
-                  shape: BoxShape.circle,
-                  border: Border.all(color: AppColors.bg, width: 3),
-                ),
-              ),
-              if (!isLast)
-                Expanded(child: Container(width: 2, color: AppColors.border)),
-            ],
+    // Stack-based timeline: the connector line spans the full height naturally,
+    // so no IntrinsicHeight (which mis-measures wrapped text and overflows).
+    return Stack(
+      children: [
+        // Connector line, behind the card, runs the full height.
+        if (!isLast)
+          Positioned(
+            left: 8,
+            top: 22,
+            bottom: 0,
+            child: Container(width: 2, color: AppColors.border),
           ),
-          const SizedBox(width: 22),
-          Expanded(
-            child: Padding(
-              padding: EdgeInsets.only(bottom: isLast ? 0 : 36),
-              child: Container(
-                padding: const EdgeInsets.all(24),
-                decoration: BoxDecoration(
-                  color: AppColors.surface,
-                  borderRadius: BorderRadius.circular(18),
-                  border: Border.all(color: AppColors.border),
-                  boxShadow: AppColors.softShadow(y: 12, blur: 30),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    if (mobile)
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          _titleBlock(),
-                          const SizedBox(height: 10),
-                          _Badge(
-                            icon: Icons.calendar_today_outlined,
-                            label: exp.period,
-                          ),
-                        ],
-                      )
-                    else
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Expanded(child: _titleBlock()),
-                          const SizedBox(width: 12),
-                          _Badge(
-                            icon: Icons.calendar_today_outlined,
-                            label: exp.period,
-                          ),
-                        ],
-                      ),
-                    const SizedBox(height: 8),
-                    Row(
-                      children: [
-                        const Icon(
-                          Icons.place_outlined,
-                          size: 15,
-                          color: AppColors.textFaint,
-                        ),
-                        const SizedBox(width: 4),
-                        Text(
-                          exp.location,
-                          style: const TextStyle(
-                            color: AppColors.textFaint,
-                            fontSize: 13,
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 16),
-                    for (final p in exp.points)
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 10),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              margin: const EdgeInsets.only(top: 7, right: 12),
-                              width: 6,
-                              height: 6,
-                              decoration: const BoxDecoration(
-                                gradient: AppColors.accent,
-                                shape: BoxShape.circle,
-                              ),
-                            ),
-                            Expanded(
-                              child: Text(
-                                p,
-                                style: const TextStyle(
-                                  color: AppColors.textMuted,
-                                  fontSize: 15,
-                                  height: 1.55,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                  ],
-                ),
-              ),
+        // Card content, indented to leave room for the dot.
+        Padding(
+          padding: EdgeInsets.only(left: 40, bottom: isLast ? 0 : 36),
+          child: _card(context),
+        ),
+        // Dot on the timeline.
+        Positioned(
+          left: 0,
+          top: 2,
+          child: Container(
+            width: 18,
+            height: 18,
+            decoration: BoxDecoration(
+              gradient: AppColors.accent,
+              shape: BoxShape.circle,
+              border: Border.all(color: AppColors.bg, width: 3),
             ),
           ),
+        ),
+      ],
+    );
+  }
+
+  Widget _card(BuildContext context) {
+    final mobile = isMobile(context);
+    return Container(
+      padding: const EdgeInsets.all(24),
+      decoration: BoxDecoration(
+        color: AppColors.surface,
+        borderRadius: BorderRadius.circular(18),
+        border: Border.all(color: AppColors.border),
+        boxShadow: AppColors.softShadow(y: 12, blur: 30),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          if (mobile)
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _titleBlock(),
+                const SizedBox(height: 10),
+                _Badge(icon: Icons.calendar_today_outlined, label: exp.period),
+              ],
+            )
+          else
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(child: _titleBlock()),
+                const SizedBox(width: 12),
+                _Badge(icon: Icons.calendar_today_outlined, label: exp.period),
+              ],
+            ),
+          const SizedBox(height: 8),
+          Row(
+            children: [
+              Icon(Icons.place_outlined, size: 15, color: AppColors.textFaint),
+              const SizedBox(width: 4),
+              Text(
+                exp.location,
+                style: TextStyle(color: AppColors.textFaint, fontSize: 13),
+              ),
+            ],
+          ),
+          const SizedBox(height: 16),
+          for (final p in exp.points)
+            Padding(
+              padding: const EdgeInsets.only(bottom: 10),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    margin: const EdgeInsets.only(top: 7, right: 12),
+                    width: 6,
+                    height: 6,
+                    decoration: const BoxDecoration(
+                      gradient: AppColors.accent,
+                      shape: BoxShape.circle,
+                    ),
+                  ),
+                  Expanded(
+                    child: Text(
+                      p,
+                      style: TextStyle(
+                        color: AppColors.textMuted,
+                        fontSize: 15,
+                        height: 1.55,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
         ],
       ),
     );
@@ -204,7 +199,7 @@ class _Badge extends StatelessWidget {
           const SizedBox(width: 6),
           Text(
             label,
-            style: const TextStyle(
+            style: TextStyle(
               color: AppColors.textMuted,
               fontSize: 12.5,
               fontWeight: FontWeight.w500,

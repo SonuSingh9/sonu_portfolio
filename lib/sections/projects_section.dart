@@ -116,7 +116,7 @@ class _ProjectCard extends StatelessWidget {
                         children: [
                           Text(
                             project.name,
-                            style: const TextStyle(
+                            style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.w700,
                               color: AppColors.text,
@@ -124,7 +124,7 @@ class _ProjectCard extends StatelessWidget {
                           ),
                           Text(
                             project.stack,
-                            style: const TextStyle(
+                            style: TextStyle(
                               fontSize: 12.5,
                               color: AppColors.textMuted,
                             ),
@@ -145,7 +145,7 @@ class _ProjectCard extends StatelessWidget {
                       Expanded(
                         child: Text(
                           project.description,
-                          style: const TextStyle(
+                          style: TextStyle(
                             color: AppColors.textMuted,
                             fontSize: 14,
                             height: 1.55,
@@ -172,7 +172,7 @@ class _ProjectCard extends StatelessWidget {
                               ),
                               child: Text(
                                 t,
-                                style: const TextStyle(
+                                style: TextStyle(
                                   fontSize: 11.5,
                                   color: AppColors.textMuted,
                                   fontWeight: FontWeight.w500,

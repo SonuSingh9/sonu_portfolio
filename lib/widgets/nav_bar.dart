@@ -1,6 +1,8 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import '../data/portfolio_data.dart';
 import '../theme/app_theme.dart';
+import '../utils/launch_url.dart';
 import '../widgets/gradient_text.dart';
 
 class NavItem {
@@ -74,26 +76,57 @@ class NavBar extends StatelessWidget {
                 ),
               ),
               if (compact)
-                PopupMenuButton<int>(
-                  color: AppColors.surface,
-                  icon: const Icon(Icons.menu, color: AppColors.text),
-                  onSelected: (i) => items[i].onTap(),
-                  itemBuilder: (context) => [
-                    for (int i = 0; i < items.length; i++)
-                      PopupMenuItem(
-                        value: i,
-                        child: Text(
-                          items[i].label,
-                          style: const TextStyle(color: AppColors.text),
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const _ThemeToggle(),
+                    const SizedBox(width: 2),
+                    PopupMenuButton<int>(
+                      color: AppColors.surface,
+                      icon: Icon(Icons.menu, color: AppColors.text),
+                      onSelected: (i) => i == items.length
+                          ? openUrl(PortfolioData.resume)
+                          : items[i].onTap(),
+                      itemBuilder: (context) => [
+                        for (int i = 0; i < items.length; i++)
+                          PopupMenuItem(
+                            value: i,
+                            child: Text(
+                              items[i].label,
+                              style: TextStyle(color: AppColors.text),
+                            ),
+                          ),
+                        PopupMenuItem(
+                          value: items.length,
+                          child: Row(
+                            children: const [
+                              Icon(
+                                Icons.description_outlined,
+                                size: 16,
+                                color: AppColors.secondary,
+                              ),
+                              SizedBox(width: 8),
+                              Text(
+                                'Resume',
+                                style: TextStyle(
+                                  color: AppColors.secondary,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
+                      ],
+                    ),
                   ],
                 )
               else
                 Row(
                   children: [
                     for (final item in items) _NavLink(item: item),
-                    const SizedBox(width: 8),
+                    const SizedBox(width: 6),
+                    const _ThemeToggle(),
+                    const SizedBox(width: 10),
                     _ResumeButton(),
                   ],
                 ),
@@ -144,7 +177,7 @@ class _ResumeButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {}, // hook up to a hosted resume PDF if desired
+      onTap: () => openUrl(PortfolioData.resume),
       child: MouseRegion(
         cursor: SystemMouseCursors.click,
         child: Container(
@@ -153,12 +186,65 @@ class _ResumeButton extends StatelessWidget {
             border: Border.all(color: AppColors.secondary),
             borderRadius: BorderRadius.circular(10),
           ),
-          child: const Text(
-            'Resume',
-            style: TextStyle(
-              color: AppColors.secondary,
-              fontWeight: FontWeight.w600,
-              fontSize: 14,
+          child: const Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(
+                Icons.description_outlined,
+                size: 15,
+                color: AppColors.secondary,
+              ),
+              SizedBox(width: 6),
+              Text(
+                'Resume',
+                style: TextStyle(
+                  color: AppColors.secondary,
+                  fontWeight: FontWeight.w600,
+                  fontSize: 14,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// Sun / moon button that flips the app between dark and light mode with a
+/// smooth icon transition.
+class _ThemeToggle extends StatelessWidget {
+  const _ThemeToggle();
+
+  @override
+  Widget build(BuildContext context) {
+    final dark = themeNotifier.value;
+    return MouseRegion(
+      cursor: SystemMouseCursors.click,
+      child: Tooltip(
+        message: dark ? 'Switch to light mode' : 'Switch to dark mode',
+        child: GestureDetector(
+          onTap: () => themeNotifier.value = !themeNotifier.value,
+          child: Container(
+            width: 40,
+            height: 40,
+            decoration: BoxDecoration(
+              color: AppColors.surface,
+              shape: BoxShape.circle,
+              border: Border.all(color: AppColors.border),
+            ),
+            child: AnimatedSwitcher(
+              duration: const Duration(milliseconds: 300),
+              transitionBuilder: (child, anim) => RotationTransition(
+                turns: Tween(begin: 0.6, end: 1.0).animate(anim),
+                child: FadeTransition(opacity: anim, child: child),
+              ),
+              child: Icon(
+                dark ? Icons.light_mode_rounded : Icons.dark_mode_rounded,
+                key: ValueKey(dark),
+                size: 19,
+                color: dark ? const Color(0xFFFCD34D) : AppColors.primary,
+              ),
             ),
           ),
         ),

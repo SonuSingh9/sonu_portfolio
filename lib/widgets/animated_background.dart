@@ -32,7 +32,7 @@ class _AnimatedBackgroundState extends State<AnimatedBackground>
     return IgnorePointer(
       child: Stack(
         children: [
-          const Positioned.fill(child: ColoredBox(color: AppColors.bg)),
+          Positioned.fill(child: ColoredBox(color: AppColors.bg)),
           AnimatedBuilder(
             animation: _c,
             builder: (context, _) {
@@ -44,21 +44,21 @@ class _AnimatedBackgroundState extends State<AnimatedBackground>
                     dx: 0.12 + 0.05 * math.sin(t),
                     dy: 0.08 + 0.04 * math.cos(t),
                     size: 520,
-                    opacity: 0.16,
+                    opacity: 0.12,
                   ),
                   _blob(
                     color: AppColors.secondary,
                     dx: 0.82 + 0.05 * math.cos(t * 0.8),
                     dy: 0.26 + 0.05 * math.sin(t * 0.8),
                     size: 460,
-                    opacity: 0.16,
+                    opacity: 0.12,
                   ),
                   _blob(
                     color: AppColors.pink,
                     dx: 0.6 + 0.06 * math.sin(t * 1.2),
                     dy: 0.85 + 0.04 * math.cos(t * 1.2),
                     size: 420,
-                    opacity: 0.12,
+                    opacity: 0.10,
                   ),
                 ],
               );
@@ -107,7 +107,7 @@ class _DotGridPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     const gap = 38.0;
-    final paint = Paint()..color = AppColors.primary.withValues(alpha: 0.05);
+    final paint = Paint()..color = AppColors.primary.withValues(alpha: 0.045);
     for (double y = 0; y < size.height; y += gap) {
       for (double x = 0; x < size.width; x += gap) {
         canvas.drawCircle(Offset(x, y), 1.3, paint);

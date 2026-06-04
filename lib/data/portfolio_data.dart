@@ -30,6 +30,8 @@ class PortfolioData {
   static const String linkedin =
       'https://www.linkedin.com/in/sonu-kumar-a89227247/';
   static const String leetcode = 'https://leetcode.com/u/sonusngh100/';
+  static const String resume =
+      'https://drive.google.com/file/d/1sUSqlt9s1whnHEKpRZqWcRDiLPPnfYli/view?usp=sharing';
 
   static const List<Stat> stats = [
     Stat('2+', 'Years Experience'),

@@ -24,7 +24,7 @@ class AboutSection extends StatelessWidget {
               constraints: const BoxConstraints(maxWidth: 760),
               child: Text(
                 PortfolioData.about,
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 18,
                   height: 1.8,
                   color: AppColors.textMuted,
@@ -83,7 +83,7 @@ class _StatCard extends StatelessWidget {
           const SizedBox(height: 6),
           Text(
             stat.label,
-            style: const TextStyle(color: AppColors.textMuted, fontSize: 14),
+            style: TextStyle(color: AppColors.textMuted, fontSize: 14),
           ),
         ],
       ),

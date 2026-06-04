@@ -149,7 +149,7 @@ class HeroSection extends StatelessWidget {
             ),
           ),
           const SizedBox(width: 9),
-          const Text(
+          Text(
             'Available for new opportunities',
             style: TextStyle(
               color: AppColors.textMuted,
@@ -165,9 +165,9 @@ class HeroSection extends StatelessWidget {
   Widget _scrollHint() {
     return Row(
       children: [
-        const Icon(Icons.mouse_outlined, color: AppColors.textFaint, size: 18),
+        Icon(Icons.mouse_outlined, color: AppColors.textFaint, size: 18),
         const SizedBox(width: 8),
-        const Text(
+        Text(
           'Scroll to explore',
           style: TextStyle(color: AppColors.textFaint, fontSize: 13),
         ),
@@ -275,7 +275,7 @@ class _GhostButton extends StatelessWidget {
             border: Border.all(color: AppColors.border),
             boxShadow: AppColors.softShadow(y: 8, blur: 20),
           ),
-          child: const Text(
+          child: Text(
             'Get In Touch',
             style: TextStyle(
               color: AppColors.text,

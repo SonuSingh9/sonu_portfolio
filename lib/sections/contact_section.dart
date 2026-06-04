@@ -37,7 +37,7 @@ class ContactSection extends StatelessWidget {
                 const SizedBox(height: 18),
                 ConstrainedBox(
                   constraints: const BoxConstraints(maxWidth: 540),
-                  child: const Text(
+                  child: Text(
                     "Have a project in mind or a role to fill? "
                     "I'm always open to discussing new opportunities.",
                     textAlign: TextAlign.center,
@@ -121,11 +121,11 @@ class ContactSection extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 72),
-          const Divider(color: AppColors.border, height: 1),
+          Divider(color: AppColors.border, height: 1),
           const SizedBox(height: 24),
           Text(
             '© 2026 ${PortfolioData.name}  ·  Built with Flutter 💙',
-            style: const TextStyle(color: AppColors.textFaint, fontSize: 13),
+            style: TextStyle(color: AppColors.textFaint, fontSize: 13),
           ),
           const SizedBox(height: 16),
         ],
@@ -167,7 +167,7 @@ class _ContactChip extends StatelessWidget {
               const SizedBox(width: 10),
               Text(
                 label,
-                style: const TextStyle(
+                style: TextStyle(
                   color: AppColors.text,
                   fontWeight: FontWeight.w500,
                   fontSize: 14,

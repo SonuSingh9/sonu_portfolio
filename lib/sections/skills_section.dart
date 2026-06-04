@@ -65,7 +65,7 @@ class _SkillCard extends StatelessWidget {
         children: [
           Text(
             group.title,
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.w700,
               color: AppColors.text,
@@ -131,7 +131,7 @@ class _SkillBarState extends State<_SkillBar> {
             children: [
               Text(
                 widget.skill.name,
-                style: const TextStyle(
+                style: TextStyle(
                   color: AppColors.text,
                   fontWeight: FontWeight.w500,
                   fontSize: 14,
@@ -139,10 +139,7 @@ class _SkillBarState extends State<_SkillBar> {
               ),
               Text(
                 '${(widget.skill.level * 100).round()}%',
-                style: const TextStyle(
-                  color: AppColors.textFaint,
-                  fontSize: 13,
-                ),
+                style: TextStyle(color: AppColors.textFaint, fontSize: 13),
               ),
             ],
           ),
