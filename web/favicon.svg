@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+  <rect x="2" y="2" width="60" height="60" rx="15" fill="#C0392B"/>
+  <text x="32" y="33" fill="#F5ECD7"
+        font-family="'Space Grotesk','Segoe UI',Helvetica,Arial,sans-serif"
+        font-size="34" font-weight="800" letter-spacing="-2"
+        text-anchor="middle" dominant-baseline="central">SK</text>
+</svg>

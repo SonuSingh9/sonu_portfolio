@@ -11,6 +11,7 @@ import 'theme/app_theme.dart';
 import 'utils/page_background.dart';
 import 'widgets/animated_background.dart';
 import 'widgets/nav_bar.dart';
+import 'widgets/particle_network.dart';
 import 'widgets/scroll_provider.dart';
 import 'widgets/splash_screen.dart';
 
@@ -27,18 +28,12 @@ class PortfolioApp extends StatelessWidget {
       valueListenable: themeNotifier,
       builder: (context, isDark, _) {
         AppColors.isDark = isDark;
-        // Keep the HTML body colour in sync so the page background renders even
-        // when CanvasKit would grey out a full-screen in-canvas fill.
         setPageBackground(AppColors.bg);
         return MaterialApp(
           title: 'Sonu Kumar · Senior Flutter Developer',
           debugShowCheckedModeBanner: false,
           theme: AppTheme.themed(isDark),
           scrollBehavior: const _WebScrollBehavior(),
-          // The page background is supplied by the HTML <body> (browser-painted,
-          // immune to CanvasKit's grey clear-color bug on the software path) and
-          // kept in sync with the theme below. The Flutter canvas stays
-          // transparent so that body shows through.
           builder: (context, child) => child ?? const SizedBox.shrink(),
           home: const SplashGate(),
         );
@@ -197,70 +192,85 @@ class _HomePageState extends State<HomePage> {
 
     return Scaffold(
       backgroundColor: Colors.transparent,
-      body: Stack(
-        children: [
-          Positioned.fill(child: AnimatedBackground()),
-          // Scrollable content.
-          Positioned.fill(
-            child: ScrollProvider(
-              controller: _scroll,
-              child: SingleChildScrollView(
+      body: MouseRegion(
+        onHover: (e) => pointerNotifier.value = e.localPosition,
+        onExit: (_) => pointerNotifier.value = null,
+        child: Stack(
+          children: [
+            Positioned.fill(child: AnimatedBackground()),
+            // Scrollable content.
+            Positioned.fill(
+              child: ScrollProvider(
                 controller: _scroll,
-                // The page background travels with the scroll content (a normal
-                // content layer that composites correctly) rather than a
-                // backmost full-screen fill, which CanvasKit greys out.
-                child: ColoredBox(
-                  color: AppColors.bg,
-                  child: Column(
-                    children: [
-                      HeroSection(
-                        onViewWork: () => _scrollTo(_projectsKey),
-                        onContact: () => _scrollTo(_contactKey),
+                child: SingleChildScrollView(
+                  controller: _scroll,
+                  // The page background travels with the scroll content (a normal
+                  // content layer that composites correctly) rather than a
+                  // backmost full-screen fill, which CanvasKit greys out.
+                  child: ColoredBox(
+                    color: AppColors.bg,
+                    child: ParticleNetwork(
+                      controller: _scroll,
+                      child: Column(
+                        children: [
+                          HeroSection(
+                            onViewWork: () => _scrollTo(_projectsKey),
+                            onContact: () => _scrollTo(_contactKey),
+                          ),
+                          KeyedSubtree(key: _aboutKey, child: AboutSection()),
+                          KeyedSubtree(key: _skillsKey, child: SkillsSection()),
+                          KeyedSubtree(
+                            key: _experienceKey,
+                            child: ExperienceSection(),
+                          ),
+                          KeyedSubtree(
+                            key: _projectsKey,
+                            child: ProjectsSection(),
+                          ),
+                          KeyedSubtree(
+                            key: _contactKey,
+                            child: ContactSection(),
+                          ),
+                        ],
                       ),
-                      KeyedSubtree(key: _aboutKey, child: AboutSection()),
-                      KeyedSubtree(key: _skillsKey, child: SkillsSection()),
-                      KeyedSubtree(
-                        key: _experienceKey,
-                        child: ExperienceSection(),
-                      ),
-                      KeyedSubtree(key: _projectsKey, child: ProjectsSection()),
-                      KeyedSubtree(key: _contactKey, child: ContactSection()),
-                    ],
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
-          // Sticky nav on top.
-          Positioned(
-            top: 0,
-            left: 0,
-            right: 0,
-            child: NavBar(
-              scrolled: _scrolled,
-              items: navItems,
-              onLogoTap: _scrollTop,
+            // Sticky nav on top.
+            Positioned(
+              top: 0,
+              left: 0,
+              right: 0,
+              child: NavBar(
+                scrolled: _scrolled,
+                items: navItems,
+                onLogoTap: _scrollTop,
+              ),
             ),
-          ),
-          // Scroll-progress gradient bar.
-          Positioned(
-            top: 0,
-            left: 0,
-            right: 0,
-            child: SizedBox(
-              height: 3,
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: FractionallySizedBox(
-                  widthFactor: _progress,
-                  child: Container(
-                    decoration: const BoxDecoration(gradient: AppColors.accent),
+            // Scroll-progress gradient bar.
+            Positioned(
+              top: 0,
+              left: 0,
+              right: 0,
+              child: SizedBox(
+                height: 3,
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: FractionallySizedBox(
+                    widthFactor: _progress,
+                    child: Container(
+                      decoration: const BoxDecoration(
+                        gradient: AppColors.accent,
+                      ),
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

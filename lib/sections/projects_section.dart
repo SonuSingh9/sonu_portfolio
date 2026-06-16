@@ -75,9 +75,10 @@ class _ProjectCard extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Header strip with the project's accent.
+              // Header strip with the project's accent. Sizes to its content
+              // (with a minimum) so long names / stacks wrap without overflowing.
               Container(
-                height: 96,
+                constraints: const BoxConstraints(minHeight: 96),
                 decoration: BoxDecoration(
                   borderRadius: const BorderRadius.vertical(
                     top: Radius.circular(22),
@@ -92,7 +93,6 @@ class _ProjectCard extends StatelessWidget {
                   ),
                 ),
                 padding: const EdgeInsets.all(20),
-                alignment: Alignment.bottomLeft,
                 child: Row(
                   children: [
                     Container(
@@ -116,16 +116,23 @@ class _ProjectCard extends StatelessWidget {
                         children: [
                           Text(
                             project.name,
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
                             style: TextStyle(
                               fontSize: 18,
+                              height: 1.15,
                               fontWeight: FontWeight.w700,
                               color: AppColors.text,
                             ),
                           ),
+                          const SizedBox(height: 2),
                           Text(
                             project.stack,
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
                             style: TextStyle(
                               fontSize: 12.5,
+                              height: 1.2,
                               color: AppColors.textMuted,
                             ),
                           ),

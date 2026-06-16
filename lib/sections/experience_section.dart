@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../data/portfolio_data.dart';
 import '../theme/app_theme.dart';
-import '../widgets/reveal_on_scroll.dart';
+import '../widgets/card_stack_reveal.dart';
 import '../widgets/section_shell.dart';
 
 class ExperienceSection extends StatelessWidget {
@@ -21,8 +21,8 @@ class ExperienceSection extends StatelessWidget {
           ),
           const SizedBox(height: 44),
           for (int i = 0; i < PortfolioData.experiences.length; i++)
-            RevealOnScroll(
-              delay: Duration(milliseconds: 90 * i),
+            CardStackReveal(
+              index: i,
               child: _TimelineItem(
                 exp: PortfolioData.experiences[i],
                 isLast: i == PortfolioData.experiences.length - 1,
