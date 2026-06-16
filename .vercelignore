@@ -1,0 +1,15 @@
+# Only the prebuilt web output (build/web) is needed on Vercel.
+# Listing .vercelignore makes Vercel use this instead of .gitignore,
+# so build/ is uploaded while the heavy Flutter source is skipped.
+.dart_tool
+.git
+.github
+.idea
+android
+ios
+linux
+windows
+macos
+test
+*.iml
+*.log
